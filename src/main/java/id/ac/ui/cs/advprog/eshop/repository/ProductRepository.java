@@ -35,4 +35,8 @@ public class ProductRepository {
             }
         }
     }
+
+    public void delete(String productName) {
+        productData.removeIf(product -> product.getProductName().equalsIgnoreCase(productName));
+    }
 }
