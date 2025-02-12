@@ -54,5 +54,9 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
-
+    @GetMapping("/delete")
+    public String deleteProduct(@RequestParam("name") String productName) {
+        service.delete(productName);
+        return "redirect:/product/list";
+    }
 }
