@@ -19,4 +19,20 @@ public class ProductRepository {
     public Iterator<Product> findAll() {
         return productData.iterator();
     }
+
+    public Product findByName(String productName) {
+        return productData.stream()
+                .filter(product -> product.getProductName().equalsIgnoreCase(productName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void update(String originalName, Product updatedProduct) {
+        for (int i = 0; i < productData.size(); i++) {
+            if (productData.get(i).getProductName().equalsIgnoreCase(originalName)) {
+                productData.set(i, updatedProduct);
+                return;
+            }
+        }
+    }
 }

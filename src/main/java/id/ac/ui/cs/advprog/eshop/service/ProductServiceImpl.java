@@ -29,4 +29,14 @@ public class ProductServiceImpl implements ProductService {
         return allProduct;
     }
 
+    @Override
+    public Product findByName(String productName) {
+        return productRepository.findByName(productName);
+    }
+
+    @Override
+    public void update(String originalName, Product updatedProduct) {
+        productRepository.update(originalName, updatedProduct);
+    }
+
 }
