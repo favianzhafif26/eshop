@@ -20,23 +20,23 @@ public class ProductRepository {
         return productData.iterator();
     }
 
-    public Product findByName(String productName) {
+    public Product findById(String productId) {
         return productData.stream()
-                .filter(product -> product.getProductName().equalsIgnoreCase(productName))
+                .filter(product -> product.getProductId().equals(productId))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void update(String originalName, Product updatedProduct) {
+    public void update(Product updatedProduct) {
         for (int i = 0; i < productData.size(); i++) {
-            if (productData.get(i).getProductName().equalsIgnoreCase(originalName)) {
+            if (productData.get(i).getProductId().equals(updatedProduct.getProductId())) {
                 productData.set(i, updatedProduct);
                 return;
             }
         }
     }
 
-    public void delete(String productName) {
-        productData.removeIf(product -> product.getProductName().equalsIgnoreCase(productName));
+    public void delete(String productId) {
+        productData.removeIf(product -> product.getProductId().equals(productId));
     }
 }
