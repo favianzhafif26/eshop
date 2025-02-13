@@ -8,7 +8,7 @@
 <body>
 <div class="container my-4">
     <h2>Edit Product</h2>
-    <form th:action="@{/product/edit}" method="post" th:object="${product}">
+    <form th:action="@{/product/edit/{productId}(productId=${product.productId})}" method="post" th:object="${product}">
         <input type="hidden" name="originalName" th:value="${originalName}" />
 
         <div class="form-group">
