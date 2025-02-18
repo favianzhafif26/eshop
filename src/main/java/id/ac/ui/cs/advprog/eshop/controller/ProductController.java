@@ -36,27 +36,27 @@ public class ProductController {
         return "productList";
     }
 
-    @GetMapping("/edit")
-    public String editProductPage(@RequestParam("name") String productName, Model model) {
-        Product product = service.findByName(productName);
+    @GetMapping("/edit/{productId}")
+    public String editProductPage(@PathVariable String productId, Model model) {
+        Product product = service.findById(productId);
         if (product == null) {
             return "redirect:/product/list"; // Redirect if product not found
         }
-        model.addAttribute("originalName", productName); // Store original name
+        model.addAttribute("originalName", productId); // Store original name
         model.addAttribute("product", product);
         return "editProduct";
     }
 
-    @PostMapping("/edit")
-    public String editProductPost(@RequestParam("originalName") String originalName,
+    @PostMapping("/edit/{productId}")
+    public String editProductPost(@PathVariable String productId,
                                   @ModelAttribute Product product) {
-        service.update(originalName, product); // Pass original name
+        service.update(productId, product); // Pass original name
         return "redirect:/product/list";
     }
 
-    @GetMapping("/delete")
-    public String deleteProduct(@RequestParam("name") String productName) {
-        service.delete(productName);
+    @GetMapping("/delete/{productId}")
+    public String deleteProduct(@PathVariable String productId) {
+        service.delete(productId);
         return "redirect:/product/list";
     }
 }
