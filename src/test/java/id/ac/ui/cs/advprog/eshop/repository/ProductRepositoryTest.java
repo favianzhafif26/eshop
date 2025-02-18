@@ -61,13 +61,26 @@ class ProductRepositoryTest {
 
     @Test
     void testEditProductNegative() {
-        Product product = new Product();
-        product.setProductId("invalid-id");
-        product.setProductName("Produk tidak ada");
-        product.setProductQuantity(10);
-        productRepository.create(product);
+        Product existingProduct = new Product();
+        existingProduct.setProductId("valid-id");
+        existingProduct.setProductName("Existing Product");
+        existingProduct.setProductQuantity(100);
+        productRepository.create(existingProduct);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("invalid-id");
+        updatedProduct.setProductName("Produk tidak ada");
+        updatedProduct.setProductQuantity(999);
+
+        productRepository.update(updatedProduct);
+
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
+        Product savedProduct = productIterator.next();
+
+        assertEquals("valid-id", savedProduct.getProductId());
+        assertEquals("Existing Product", savedProduct.getProductName());
+        assertEquals(100, savedProduct.getProductQuantity());
     }
 
     @Test
@@ -127,4 +140,27 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testFindByIdPositive() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+
+        assertNotNull(foundProduct);
+        assertEquals(product.getProductId(), foundProduct.getProductId());
+        assertEquals(product.getProductName(), foundProduct.getProductName());
+        assertEquals(product.getProductQuantity(), foundProduct.getProductQuantity());
+    }
+
+    @Test
+    void testFindByIdNegative() {
+        Product foundProduct = productRepository.findById("invalid-id");
+        assertNull(foundProduct);
+    }
+
 }
