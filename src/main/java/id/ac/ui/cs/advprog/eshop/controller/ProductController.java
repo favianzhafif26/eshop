@@ -5,6 +5,7 @@ import id.ac.ui.cs.advprog.eshop.service.CarServiceImpl;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,7 @@ public class ProductController {
     }
 }
 
+@Profile("!test")
 @Controller
 @RequestMapping("/car")
 class CarController extends ProductController {
