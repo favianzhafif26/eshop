@@ -1,3 +1,5 @@
+# **Module 1**
+
 ### **Refleksi 1**  
 
 #### **1. Prinsip Clean Code yang Diterapkan:**  
@@ -139,4 +141,27 @@ Membuat functional test suite baru yang mirip dengan sebelumnya **dapat menguran
         return product;
     }
     ```
+---
+
+# **Module 2**
+
+### **Refleksi 1**  
+
+Saat mengerjakan modul ini, saya menyadari bahwa workflow GitHub Actions masih menggunakan izin token default, yang terlalu rentan untuk melewati pemeriksaan keamanan dan pemindaian kode atau Scorecard. Untuk mengatasi hal ini, saya menambahkan konfigurasi berikut ke dalam direktori `.github/workflows/ci.yml`:
+
+```yaml
+  permission:
+    contents: read
+```
+
+Langkah ini mengikuti prinsip hak akses minimal, memastikan bahwa workflow hanya memiliki izin baca yang benar-benar diperlukan. Dengan demikian, saya berhasil meningkatkan keamanan dan kualitas kode serta menyelesaikan isu yang terdeteksi.
+
+---
+
+### **Refleksi 2**
+
+Implementasi dalam proyek saya sepenuhnya memenuhi prinsip CI/CD. Dalam proses CI, setiap perubahan kode secara otomatis diuji, dianalisis untuk memastikan kualitas, dan diperiksa terhadap potensi kerentanan keamanan sebelum digabungkan. Dengan pendekatan ini, hanya kode yang telah terverifikasi dengan baik yang dapat masuk ke branch utama, memastikan stabilitas dan keandalan proyek.  
+
+Sementara itu, deployment ke Koyeb berjalan sepenuhnya otomatis, memungkinkan setiap perubahan yang lolos semua pengujian untuk langsung diterapkan tanpa perlu intervensi manual. Hal ini sejalan dengan konsep Continuous Deployment, di mana setiap pembaruan yang memenuhi standar kualitas segera dirilis ke produksi. Dengan workflow yang efisien ini, saya dapat meminimalkan keterlambatan, mempercepat siklus rilis, dan memastikan pengiriman perangkat lunak yang cepat, stabil, dan aman.
+
 ---
