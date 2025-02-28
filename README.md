@@ -165,3 +165,50 @@ Implementasi dalam proyek saya sepenuhnya memenuhi prinsip CI/CD. Dalam proses C
 Sementara itu, deployment ke Koyeb berjalan sepenuhnya otomatis, memungkinkan setiap perubahan yang lolos semua pengujian untuk langsung diterapkan tanpa perlu intervensi manual. Hal ini sejalan dengan konsep Continuous Deployment, di mana setiap pembaruan yang memenuhi standar kualitas segera dirilis ke produksi. Dengan workflow yang efisien ini, saya dapat meminimalkan keterlambatan, mempercepat siklus rilis, dan memastikan pengiriman perangkat lunak yang cepat, stabil, dan aman.
 
 ---
+
+# **Module 3**
+
+### **Refleksi 1: Prinsip yang di Aplikasikan ke Proyek**
+
+#### **Single Responsibility Principle (SRP)**  
+Setiap class dan method dalam proyek ini memiliki tanggung jawab yang jelas dan terpisah. Sebagai contoh, `CarController` hanya menangani permintaan `HTTP` terkait mobil, sedangkan `CarService` bertanggung jawab atas logika bisnis mobil. Saya memisahkan tanggung jawab antara `CarController` dan ``ProductController`` yang awalnya berada di dalam satu file `ProductController`, di mana ``CarController`` hanya menangani permintaan terkait mobil dan ``ProductController`` menangani permintaan terkait produk.  
+
+#### **Open/Closed Principle (OCP)**  
+Setiap class dan module dirancang agar dapat diperluas tanpa harus dimodifikasi. Saya menggunakan antarmuka `CarService`, yang kemudian diimplementasikan oleh kelas  `CarServiceImpl`, memungkinkan ekspansi tanpa harus mengubah antarmuka yang sudah ada.  
+
+#### **Liskov Substitution Principle (LSP)**  
+Setiap subclass dapat menggantikan superclass-nya tanpa mengubah fungsionalitas program. Saya memastikan bahwa setiap implementasi `CarService` di `CarServiceImpl` , dapat digunakan di mana saja tanpa menngubah perilaku aplikasi dan tanpa menimbulkan masalah kompatibilitas.  
+
+#### **Interface Segregation Principle (ISP)**  
+Antarmuka dipecah menjadi bagian yang lebih kecil dan lebih spesifik untuk menghindari ketergantungan yang tidak perlu. Saya mendesain antarmuka `CarService` hanya memiliki method yang relevan dengan operasi mobil, sehingga user tidak perlu bergantung pada metode yang tidak digunakan.
+
+#### **Dependency Inversion Principle (DIP)**  
+Module tingkat tinggi tidak bergantung pada module tingkat rendah, melainkan keduanya bergantung pada abstraksi. `CarController` tidak bergantung langsung pada `CarServiceImpl`, melainkan pada antarmuka `CarService`, sehingga memudahkan injeksi dependensi dan pengujian. Saya menerapkan injeksi dependensi dengan `@Autowired`, sehingga `CarController` tidak bergantung pada implementasi konkret `CarServiceImpl`.  
+
+---
+
+### **Refleksi 2: Keuntungan Penerapan Prinsip SOLID**  
+
+- Kode lebih mudah dikelola dan diperbarui karena tanggung jawabnya terpisah dengan baik. Jika ada perubahan dalam logika bisnis mobil, hanya `CarServiceImpl` yang perlu diperbarui tanpa mempengaruhi `CarController`.
+
+- Penggunaan antarmuka dan injeksi dependensi memudahkan pembuatan `mock` atau `stub` dalam `unit testing`. Misalnya, `CarController` dapat diuji dengan `mock CarService` tanpa harus bergantung pada implementasi konkret. Saya menggunakan antarmuka `CarService` dan menerapkan injeksi dependensi di `CarController`, memungkinkan penggunaan `mock` dalam pengujian unit.  
+
+- Kode menjadi lebih mudah diperluas tanpa mengubah kode yang ada, berkat penerapan. Kita dapat menambahkan implementasi baru dari `CarService` tanpa mengubah **CarController`.
+
+- Kode lebih mudah dipahami karena setiap class dan antarmuka memiliki tanggung jawab yang spesifik. Saya memisahkan tanggung jawab antara `CarController` dan `CarService`, serta mendesain antarmuka `CarService` agar lebih terstruktur dan jelas.  
+
+---
+
+### **Refleksi 3: Kerugian Jika Tidak Menerapkan Prinsip SOLID**  
+
+- Tanpa `DIP`, module tingkat tinggi akan bergantung pada module tingkat rendah, sehingga kode sulit diuji dan dipelihara. Misalnya, jika `CarController` langsung bergantung pada `CarServiceImpl`, setiap perubahan pada `CarServiceImpl` akan berdampak pada `CarController`.
+
+- Tanpa `SRP` dan `ISP`, kode akan memiliki tanggung jawab ganda dan antarmuka yang besar, menyebabkan duplikasi kode dan kesulitan dalam pemeliharaan. Misalnya, jika `CarService` memiliki terlalu banyak metthod yang tidak terkait, maka user akan dipaksa untuk mengimplementasikan metode yang tidak dibutuhkan.
+
+- Tanpa `OCP`, setiap perubahan atau fitur baru akan memerlukan modifikasi kode yang sudah ada, meningkatkan risiko bug dan kesalahan. Misalnya, menambahkan fitur baru ke `CarService` akan mengharuskan perubahan pada antarmuka dan semua implementasinya.
+
+- Tanpa `SRP`, kode menjadi sulit dibaca dan dipahami karena kelas dan metode memiliki terlalu banyak tanggung jawab. Hal ini menyulitkan proses debugging dan pemeliharaan.  
+
+- Tanpa `LSP`, subclass tidak dapat menggantikan superclass tanpa mengubah perilaku aplikasi, yang dapat menyebabkan bug dan inkonsistensi dalam kode. Misalnya, jika implementasi `CarService` tidak mengikuti kontrak yang telah ditetapkan oleh antarmuka `CarService`, kode yang menggunakan `CarService` bisa mengalami error atau hasil yang tidak diharapkan.
+
+---
