@@ -44,7 +44,11 @@ class PaymentServiceTest {
         payments = new ArrayList<>();
 
         Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", order1, "VOUCHER", Map.of("voucherCode", "ESHOP1234ABC5678"));
+        payments.add(payment1);
         Payment payment2 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", order2, "BANK_TRANSFER", bankTransferDetails);
+        payments.add(payment2);
+        Payment payment3 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", order1, "VOUCHER", Map.of("voucherCode", "ESHOP1234"));
+        payments.add(payment3);
     }
 
     @Test
@@ -125,7 +129,6 @@ class PaymentServiceTest {
 
     @Test
     void testSetInvalidStatus() {
-        when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> invocation.getArgument(0));
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("a5e93216-127c-43df-b7f1-89b720e496bb", order1, "VOUCHER", Map.of("voucherCode", "ESHOP1234ABC5678"));
             payment = paymentService.setStatus(payment, "KELAR");
