@@ -102,7 +102,7 @@ class PaymentRepositoryTest {
 
     @Test
     void testFindAllPaymentsIfEmpty() {
-        Iterator<Product> paymentIterator = paymentRepository.findAll();
+        Iterator<Payment> paymentIterator = paymentRepository.findAll();
         assertFalse(paymentIterator.hasNext());
     }
 
@@ -115,11 +115,11 @@ class PaymentRepositoryTest {
         Iterator<Payment> paymentIterator = paymentRepository.findAll();
         assertTrue(paymentIterator.hasNext());
         Payment firstPayment = paymentIterator.next();
-        assertEquals(payments.get(1).getId(), savedPayment.getId());
-        assertEquals(payments.get(1).getPaymentData(), savedPayment.getPaymentData());
-        assertEquals(payments.get(1).getOrder(), savedPayment.getOrder());
-        assertEquals(payments.get(1).getStatus(), savedPayment.getStatus());
-        assertEquals(payments.get(1).getMethod(), savedPayment.getMethod());
+        assertEquals(payments.get(1).getId(), firstPayment.getId());
+        assertEquals(payments.get(1).getPaymentData(), firstPayment.getPaymentData());
+        assertEquals(payments.get(1).getOrder(), firstPayment.getOrder());
+        assertEquals(payments.get(1).getStatus(), firstPayment.getStatus());
+        assertEquals(payments.get(1).getMethod(), firstPayment.getMethod());
         Payment secondPayment = paymentIterator.next();
         assertEquals(payments.get(2).getId(), secondPayment.getId());
         assertEquals(payments.get(2).getPaymentData(), secondPayment.getPaymentData());
