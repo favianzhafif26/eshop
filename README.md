@@ -212,3 +212,23 @@ Module tingkat tinggi tidak bergantung pada module tingkat rendah, melainkan ked
 - Tanpa `LSP`, subclass tidak dapat menggantikan superclass tanpa mengubah perilaku aplikasi, yang dapat menyebabkan bug dan inkonsistensi dalam kode. Misalnya, jika implementasi `CarService` tidak mengikuti kontrak yang telah ditetapkan oleh antarmuka `CarService`, kode yang menggunakan `CarService` bisa mengalami error atau hasil yang tidak diharapkan.
 
 ---
+
+# **Module 4**
+
+### **Refleksi 1** 
+Pendekatan Test-Driven Development (TDD) sangat membantu dalam memperjelas fungsi suatu kode serta mendefinisikan perilaku yang diharapkan secara lebih terstruktur, karena proses pengembangannya diawali dengan pengujian. Jika setelah implementasi sebuah kelas masih terdapat kegagalan dalam pengujian, hal ini justru menandakan bahwa TDD bekerja secara efektif dengan menunjukkan bagian-bagian kode yang belum sepenuhnya sesuai.  
+
+Namun, dalam menerapkan alur TDD, saya pribadi menghadapi beberapa tantangan. Salah satu di antaranya adalah adanya kasus-kasus yang terlewat dalam pengujian saat saya mengimplementasikan sebuah kelas. Akibatnya, saya harus memperluas cakupan pengujian agar lebih menyeluruh. Selain itu, karena saya masih baru dalam menggunakan TDD dan belum banyak berpengalaman dengan unit testing sebelumnya, saya sering mengalami kesulitan dalam merancang desain pengujian yang baik.
+
+---
+
+### **Refleksi 2**
+Dalam kode saya, beberapa prinsip dari F.I.R.S.T. telah berhasil saya terapkan dengan baik, sementara sebagian lainnya masih perlu disempurnakan.  
+
+- Fast (F): Saya telah menerapkannya dengan baik karena pengujian saya hanya bergantung pada memori tanpa menggunakan dependensi eksternal yang berpotensi memperlambat eksekusi.  
+- Independent (I): Berhasil saya implementasikan menggunakan anotasi `@BeforeEach`, yang memastikan setiap pengujian berjalan secara independen tanpa bergantung pada pengujian lainnya.  
+- Repeatable (R): Saya memastikan pengujian dapat dijalankan secara konsisten, baik di lingkungan lokal maupun dalam CI (Continuous Integration).  
+- Self-Validating (S): Validasi hasil pengujian dilakukan melalui berbagai assertion seperti `assertThrows`, `assertNull`, dan `assertEquals`, sehingga setiap pengujian dapat secara otomatis menentukan keberhasilannya.  
+- Timely (T): Saya menerapkannya dengan menulis pengujian terlebih dahulu sebelum mengimplementasikan kelas yang diuji. Selain itu, cakupan pengujian saya sudah mencakup berbagai skenario, termasuk kemungkinan error, hasil yang diharapkan, happy paths, dan unhappy paths.
+
+---
