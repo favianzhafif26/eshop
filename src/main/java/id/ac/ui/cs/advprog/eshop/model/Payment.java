@@ -1,10 +1,14 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethods;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Map;
 
 @Getter
+@Setter
 public class Payment {
     String id;
     Order order;
@@ -61,4 +65,14 @@ public class Payment {
         }
         this.status = status;
     }
+    private int countDigit(String code) {
+        int count = 0;
+        for (int i = 0; i < code.length(); i++) {
+            if (Character.isDigit(code.charAt(i))) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
+
