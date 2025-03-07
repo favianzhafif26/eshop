@@ -137,7 +137,7 @@ class PaymentServiceTest {
         Payment payment = payments.get(1);
         when(paymentRepository.findById(payment.getId())).thenReturn(payment);
 
-        Payment result = paymentService.findById(payment.getId());
+        Payment result = paymentService.getPayment(payment.getId());
         assertEquals(payment.getId(), result.getId());
     }
 
