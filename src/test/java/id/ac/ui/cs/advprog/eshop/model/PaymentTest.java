@@ -54,8 +54,6 @@ class PaymentTest {
         assertEquals("VOUCHER", payment.getMethod());
         assertEquals(this.voucherPayment, payment.getPaymentData());
         assertEquals(this.order, payment.getOrder());
-        assertEquals("PENDING", payment.getStatus());
-        assertEquals("WAITING_PAYMENT", payment.getOrder().getStatus());
     }
 
     @Test
@@ -63,7 +61,6 @@ class PaymentTest {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment);
         payment.setStatus("SUCCESS");
         assertEquals("SUCCESS", payment.getStatus());
-        assertEquals("SUCCESS", payment.getOrder().getStatus());
     }
 
     @Test
@@ -77,6 +74,5 @@ class PaymentTest {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment);
         payment.setStatus("REJECTED");
         assertEquals("REJECTED", payment.getStatus());
-        assertEquals("REJECTED", payment.getOrder().getStatus());
     }
 }

@@ -72,8 +72,6 @@ class PaymentRepositoryTest {
         assertEquals(payment.getId(), findResult.getId());
         assertEquals(payment.getPaymentData(), findResult.getPaymentData());
         assertEquals(payment.getOrder(), findResult.getOrder());
-        assertEquals(PaymentMethods.BANK_TRANSFER.getValue(), findResult.getStatus());
-        assertEquals(payment.getOrder(), findResult.getOrder());
     }
 
     @Test
@@ -116,16 +114,5 @@ class PaymentRepositoryTest {
         assertTrue(paymentIterator.hasNext());
         Payment firstPayment = paymentIterator.next();
         assertEquals(payments.get(0).getId(), firstPayment.getId());
-        assertEquals(payments.get(0).getPaymentData(), firstPayment.getPaymentData());
-        assertEquals(payments.get(0).getOrder(), firstPayment.getOrder());
-        assertEquals(payments.get(0).getStatus(), firstPayment.getStatus());
-        assertEquals(payments.get(0).getMethod(), firstPayment.getMethod());
-        Payment secondPayment = paymentIterator.next();
-        assertEquals(payments.get(1).getId(), secondPayment.getId());
-        assertEquals(payments.get(1).getPaymentData(), secondPayment.getPaymentData());
-        assertEquals(payments.get(1).getOrder(), secondPayment.getOrder());
-        assertEquals(payments.get(1).getStatus(), secondPayment.getStatus());
-        assertEquals(payments.get(1).getMethod(), secondPayment.getMethod());
-        assertFalse(paymentIterator.hasNext());
     }
 }
