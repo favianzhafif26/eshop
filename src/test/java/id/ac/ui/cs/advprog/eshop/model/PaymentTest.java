@@ -43,12 +43,12 @@ class PaymentTest {
     void testCreatePaymentEmptyOrder() {
         this.order = null;
         assertThrows(IllegalArgumentException.class,
-                    () -> new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER", this.voucherPayment, this.order));
+                    () -> new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment));
     }
 
     @Test
     void testCreatePaymentDefaultStatus() {
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER", this.voucherPayment, this.order);
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment);
 
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
         assertEquals("VOUCHER", payment.getMethod());
@@ -60,7 +60,7 @@ class PaymentTest {
 
     @Test
     void testCreatePaymentSuccessStatus() {
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER", this.voucherPayment, this.order);
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment);
         payment.setStatus("SUCCESS");
         assertEquals("SUCCESS", payment.getStatus());
         assertEquals("SUCCESS", payment.getOrder().getStatus());
@@ -68,13 +68,13 @@ class PaymentTest {
 
     @Test
     void testSetPaymentInvalidStatus() {
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER", this.voucherPayment, this.order);
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("Meow"));
     }
 
     @Test
     void testSetStatusToRejected() {
-        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER", this.voucherPayment, this.order);
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", this.order, "VOUCHER", this.voucherPayment);
         payment.setStatus("REJECTED");
         assertEquals("REJECTED", payment.getStatus());
         assertEquals("REJECTED", payment.getOrder().getStatus());
